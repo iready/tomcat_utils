@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tomcat_utils.iml" filepath="$PROJECT_DIR$/.idea/modules/tomcat_utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tomcat_utils_main.iml" filepath="$PROJECT_DIR$/.idea/modules/tomcat_utils_main.iml" group="tomcat_utils" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/tomcat_utils_test.iml" filepath="$PROJECT_DIR$/.idea/modules/tomcat_utils_test.iml" group="tomcat_utils" />
+    </modules>
+  </component>
+</project>

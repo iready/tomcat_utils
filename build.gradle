@@ -1,0 +1,16 @@
+group 'org.zyq'
+version '0.1'
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+
+sourceCompatibility = 1.7
+
+repositories {
+    maven {
+        url 'http://localhost:8081/artifactory/libs-release'
+    }
+}
+dependencies {
+    compile('org.codehaus.groovy:groovy:2.4.5', 'log4j:log4j:1.2.17')
+}
