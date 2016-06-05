@@ -1,5 +1,7 @@
 package org.zyq.tomcat.view.table_list;
 
+import org.apache.commons.io.FileUtils;
+import org.zyq.core.lang.Str;
 import org.zyq.swing.SwingUtils;
 import org.zyq.swing.TableUtils;
 import org.zyq.tomcat.CONFIG;
@@ -9,7 +11,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.ObjectOutputStream;
 
 public class Tomcat_list {
 
@@ -27,7 +32,13 @@ public class Tomcat_list {
         $$$setupUI$$$();
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    ObjectOutputStream oos = new ObjectOutputStream(FileUtils.openOutputStream(new File(CONFIG.defaultConfig)));
+                    oos.writeObject(CONFIG.subject);
+                    oos.close();
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             }
         });
         addButton.addActionListener(new ActionListener() {
@@ -36,6 +47,7 @@ public class Tomcat_list {
                 SwingUtils.setContent(new Tomcat_add().$$$getRootComponent$$$());
             }
         });
+
         selectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s = "D:/";
@@ -51,6 +63,15 @@ public class Tomcat_list {
         });
         workLabel.setText(CONFIG.subject.getWorkspace() == null ? "无" : CONFIG.subject.getWorkspace());
         workLabel.setToolTipText(workLabel.getText());
+        workLabel.addMouseListener(new MouseAdapter() {
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2 && Str.notBlank(CONFIG.subject.getWorkspace())) {
+                    Str.setSysClipboardText(CONFIG.subject.getWorkspace());
+                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "复制成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                }
+            }
+        });
     }
 
     private void createUIComponents() {

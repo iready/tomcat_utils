@@ -1,6 +1,7 @@
 package org.zyq.tomcat.view.tomcat_option;
 
 import org.zyq.swing.SwingUtils;
+import org.zyq.tomcat.CONFIG;
 import org.zyq.tomcat.view.table_list.Tomcat_list;
 
 import javax.swing.*;
@@ -15,11 +16,23 @@ public class Tomcat_option {
     private JButton tingzhiButton;
     private JButton deButton;
     private JButton sureButton;
+    private JButton deleteButton;
 
-    public Tomcat_option(String id) {
+    public Tomcat_option(final String id) {
         backButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
+            }
+        });
+        deleteButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                int index = -1;
+                for (int i = 0; i < CONFIG.subject.getList().size(); i++) {
+                    if (CONFIG.subject.getList().get(i).getId().equals(id)) index = i;
+                }
+                if (index != -1) CONFIG.subject.getList().remove(index);
+                JOptionPane.showMessageDialog($$$getRootComponent$$$(), "删除成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }
         });
@@ -55,7 +68,7 @@ public class Tomcat_option {
         qidongButton.setText("启动");
         qidongButton.setToolTipText("启动");
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
+        gbc.gridx = 2;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(qidongButton, gbc);
@@ -63,7 +76,7 @@ public class Tomcat_option {
         tingzhiButton.setText("停止");
         tingzhiButton.setToolTipText("停止");
         gbc = new GridBagConstraints();
-        gbc.gridx = 2;
+        gbc.gridx = 3;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(tingzhiButton, gbc);
@@ -71,7 +84,7 @@ public class Tomcat_option {
         deButton.setText("部署");
         deButton.setToolTipText("部署");
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
+        gbc.gridx = 4;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(deButton, gbc);
@@ -79,7 +92,7 @@ public class Tomcat_option {
         sureButton.setText("确定");
         sureButton.setToolTipText("确定");
         gbc = new GridBagConstraints();
-        gbc.gridx = 4;
+        gbc.gridx = 5;
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(sureButton, gbc);
@@ -92,6 +105,14 @@ public class Tomcat_option {
         gbc.gridwidth = 2;
         gbc.fill = GridBagConstraints.BOTH;
         o.add(label1, gbc);
+        deleteButton = new JButton();
+        deleteButton.setText("删除");
+        deleteButton.setToolTipText("删除");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        o.add(deleteButton, gbc);
     }
 
     /**
