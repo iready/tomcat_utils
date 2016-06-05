@@ -19,8 +19,8 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="tomcat_utils_main" target="1.5" />
-      <module name="tomcat_utils_test" target="1.5" />
+      <module name="tomcat_utils_main" target="1.7" />
+      <module name="tomcat_utils_test" target="1.7" />
     </bytecodeTargetLevel>
   </component>
 </project>

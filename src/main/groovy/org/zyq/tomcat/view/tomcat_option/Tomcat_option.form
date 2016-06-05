@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="org.zyq.tomcat.view.tomcat_option.Tomcat_option">
+  <grid id="27dc6" binding="o" layout-manager="GridBagLayout">
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="24f1f" class="javax.swing.JButton" binding="backButton">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="返回"/>
+          <toolTipText value="返回"/>
+        </properties>
+      </component>
+      <component id="7efba" class="javax.swing.JButton" binding="qidongButton">
+        <constraints>
+          <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="启动"/>
+          <toolTipText value="启动"/>
+        </properties>
+      </component>
+      <component id="1fe4b" class="javax.swing.JButton" binding="tingzhiButton">
+        <constraints>
+          <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="停止"/>
+          <toolTipText value="停止"/>
+        </properties>
+      </component>
+      <component id="39257" class="javax.swing.JButton" binding="deButton">
+        <constraints>
+          <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="部署"/>
+          <toolTipText value="部署"/>
+        </properties>
+      </component>
+      <component id="75762" class="javax.swing.JButton" binding="sureButton">
+        <constraints>
+          <grid row="0" column="4" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <text value="确定"/>
+          <toolTipText value="确定"/>
+        </properties>
+      </component>
+      <component id="91af2" class="javax.swing.JLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="2" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <gridbag weightx="0.0" weighty="0.0"/>
+        </constraints>
+        <properties>
+          <horizontalAlignment value="4"/>
+          <text value="当前TOMCAT为："/>
+        </properties>
+      </component>
+    </children>
+  </grid>
+</form>
