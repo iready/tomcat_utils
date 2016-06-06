@@ -12,5 +12,5 @@ repositories {
     }
 }
 dependencies {
-    compile('org.codehaus.groovy:groovy:2.4.5', 'log4j:log4j:1.2.17', 'org.apache.commons:commons-compress:1.11','org.zyq.utils:swing:0.398','org.zyq.utils:core:0.4')
+    compile('org.codehaus.groovy:groovy:2.4.5', 'log4j:log4j:1.2.17', 'net.lingala.zip4j:zip4j:1.3.2', 'org.zyq.utils:swing:0.398', 'org.zyq.utils:core:0.4')
 }

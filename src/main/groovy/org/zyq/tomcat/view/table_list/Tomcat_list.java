@@ -50,7 +50,6 @@ public class Tomcat_list {
                 SwingUtils.setContent(new Tomcat_add().$$$getRootComponent$$$());
             }
         });
-
         selectButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String s = "D:/";

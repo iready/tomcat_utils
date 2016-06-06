@@ -1,5 +1,7 @@
 package org.zyq.tomcat.view.tabel_add;
 
+import net.lingala.zip4j.core.ZipFile;
+import org.apache.commons.io.FileUtils;
 import org.zyq.swing.SwingUtils;
 import org.zyq.tomcat.CONFIG;
 import org.zyq.tomcat.entity.TomcatInfo;
@@ -9,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.UUID;
 
 /**
@@ -49,10 +52,29 @@ public class Tomcat_add {
                     return;
                 }
                 info.setPort(i);
-                info.setId(UUID.randomUUID().toString());
+                String id = UUID.randomUUID().toString().replaceAll("-", "");
+                info.setId(id);
                 CONFIG.subject.getList().add(info);
-                System.out.println(Tomcat_add.class.getResourceAsStream("/tomcat_8.028.zip"));
-                JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                String tomcat_name = "tomcat_8.028.zip";
+                try {
+                    File file = new File(CONFIG.subject.getWorkspace() + "/" + tomcat_name);
+                    if (!file.exists())
+                        FileUtils.copyInputStreamToFile(Tomcat_add.class.getResourceAsStream("/" + tomcat_name), file);
+                    ZipFile zipFile = new ZipFile(file);
+                    if (!zipFile.isValidZipFile()) {   // 验证.zip文件是否合法，包括文件是否存在、是否为zip文件、是否被损坏等
+                        JOptionPane.showMessageDialog($$$getRootComponent$$$(), "压缩文件不合法,可能被损坏.", "提示", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    File destDir = new File(CONFIG.subject.getWorkspace(), id);
+                    if (!destDir.exists()) {
+                        destDir.mkdirs();
+                    }
+                    zipFile.extractAll(destDir.getAbsolutePath());
+                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "发生错误", "提示", JOptionPane.ERROR_MESSAGE);
+                }
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }
         });
