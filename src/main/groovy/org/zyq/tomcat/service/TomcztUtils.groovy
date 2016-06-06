@@ -5,10 +5,11 @@ import org.dom4j.Document
 import org.dom4j.io.SAXReader
 import org.dom4j.tree.DefaultElement
 import org.zyq.core.lang.NumberUtils
-import org.zyq.core.lang.Str
+import org.zyq.swing.SwingUtils
 import org.zyq.tomcat.CONFIG
 import org.zyq.tomcat.entity.Subject
 import org.zyq.tomcat.entity.TomcatInfo
+import org.zyq.tomcat.view.table_list.Tomcat_list
 
 import javax.swing.*
 
@@ -61,17 +62,20 @@ class TomcztUtils {
         if (!handle_space_ex()) return;
         String[] s = new File(CONFIG.subject.workspace).list(new FilenameFilter() {
             boolean accept(File dir, String name) {
-                if (new File(dir, name).isDirectory()) return true;
-                return false;
+                if (new File(dir, name).isDirectory() && CONFIG.subject.list.find { it.id == name } == null) {
+                    new File(dir, name).deleteDir();
+                    return false;
+                }
+                return true;
             }
         });
         CONFIG.subject.list.findAll {
-            s.each {
-                iv -> if (iv != it.id) return true;
-            }
+            if (!s.contains(it.id)) return true;
+            return false;
         }.each {
-            println it.id
-//            new File(CONFIG.subject.getWorkspace(), it.id).deleteDir();
+            CONFIG.subject.list.remove(it);
+            saveConfig();
+            SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
         }
     }
 
@@ -80,7 +84,7 @@ class TomcztUtils {
     }
 
     public static boolean spaceExisted() {
-        if (Str.notBlank(CONFIG.subject.getWorkspace())) {
+        if (CONFIG.subject.getWorkspace() != null) {
             File f = new File(CONFIG.subject.getWorkspace());
             if (f.exists() && f.isDirectory()) return true;
         }
