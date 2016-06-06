@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class Tomcat_option {
     private JPanel o;
@@ -17,6 +20,7 @@ public class Tomcat_option {
     private JButton deButton;
     private JButton sureButton;
     private JButton deleteButton;
+    private JLabel nowtomcat;
 
     public Tomcat_option(final String id) {
         backButton.addActionListener(new ActionListener() {
@@ -34,6 +38,21 @@ public class Tomcat_option {
                 if (index != -1) CONFIG.subject.getList().remove(index);
                 JOptionPane.showMessageDialog($$$getRootComponent$$$(), "删除成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
+            }
+        });
+        final String s = CONFIG.subject.getWorkspace() + "\\" + id;
+        nowtomcat.setText(s);
+        nowtomcat.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2) {
+                    try {
+                        Runtime.getRuntime().exec("explorer " + s);
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
             }
         });
     }
@@ -113,6 +132,15 @@ public class Tomcat_option {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(deleteButton, gbc);
+        nowtomcat = new JLabel();
+        nowtomcat.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 4;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.VERTICAL;
+        o.add(nowtomcat, gbc);
     }
 
     /**

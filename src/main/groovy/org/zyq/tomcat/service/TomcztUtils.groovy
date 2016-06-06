@@ -5,9 +5,12 @@ import org.dom4j.Document
 import org.dom4j.io.SAXReader
 import org.dom4j.tree.DefaultElement
 import org.zyq.core.lang.NumberUtils
+import org.zyq.core.lang.Str
 import org.zyq.tomcat.CONFIG
 import org.zyq.tomcat.entity.Subject
 import org.zyq.tomcat.entity.TomcatInfo
+
+import javax.swing.*
 
 class TomcztUtils {
     public
@@ -53,7 +56,42 @@ class TomcztUtils {
         oos.close();
     }
 
+
+    public static void clearWorkSpace() {
+        if (!handle_space_ex()) return;
+        String[] s = new File(CONFIG.subject.workspace).list(new FilenameFilter() {
+            boolean accept(File dir, String name) {
+                if (new File(dir, name).isDirectory()) return true;
+                return false;
+            }
+        });
+        CONFIG.subject.list.findAll {
+            s.each {
+                iv -> if (iv != it.id) return true;
+            }
+        }.each {
+            println it.id
+//            new File(CONFIG.subject.getWorkspace(), it.id).deleteDir();
+        }
+    }
+
     public static void main(String[] args) {
         edit_port(9012, 312, 3123, 12312, 'D:\\Workspace/88c3a1bcbea64cd4a7421c55733bd00d/conf/server.xml')
+    }
+
+    public static boolean spaceExisted() {
+        if (Str.notBlank(CONFIG.subject.getWorkspace())) {
+            File f = new File(CONFIG.subject.getWorkspace());
+            if (f.exists() && f.isDirectory()) return true;
+        }
+        return false;
+    }
+
+    public static boolean handle_space_ex() {
+        if (!spaceExisted()) {
+            JOptionPane.showMessageDialog(null, "工作目录不存在", "提示", JOptionPane.INFORMATION_MESSAGE);
+            return false;
+        }
+        return true;
     }
 }

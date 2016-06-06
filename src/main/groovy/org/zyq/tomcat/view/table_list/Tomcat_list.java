@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
+import java.io.IOException;
 
 public class Tomcat_list {
 
@@ -22,10 +23,10 @@ public class Tomcat_list {
     private JButton selectButton;
     private JButton daoruButton;
     private JButton saveButton;
-    private JLabel peizhiLabel;
     private JLabel workLabel;
     private JTable listTable;
     private JScrollPane sp1;
+    private JButton clearButton;
 
     public Tomcat_list() {
         $$$setupUI$$$();
@@ -62,9 +63,19 @@ public class Tomcat_list {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 if (e.getClickCount() == 2 && Str.notBlank(CONFIG.subject.getWorkspace())) {
-                    Str.setSysClipboardText(CONFIG.subject.getWorkspace());
-                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "复制成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                    try {
+                        Runtime.getRuntime().exec("explorer " + CONFIG.subject.getWorkspace());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+//                    Str.setSysClipboardText(CONFIG.subject.getWorkspace());
+//                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "复制成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 }
+            }
+        });
+        clearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TomcztUtils.clearWorkSpace();
             }
         });
     }
@@ -86,44 +97,20 @@ public class Tomcat_list {
         createUIComponents();
         list = new JPanel();
         list.setLayout(new GridBagLayout());
-        final JLabel label1 = new JLabel();
-        label1.setHorizontalAlignment(0);
-        label1.setHorizontalTextPosition(0);
-        label1.setText("tomcat管理工具");
+        selectButton = new JButton();
+        selectButton.setHorizontalAlignment(2);
+        selectButton.setText("选择工作目录");
         GridBagConstraints gbc;
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.BOTH;
-        list.add(label1, gbc);
-        selectButton = new JButton();
-        selectButton.setHorizontalAlignment(2);
-        selectButton.setText("选择工作目录");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         list.add(selectButton, gbc);
-        saveButton = new JButton();
-        saveButton.setText("保存配置");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        list.add(saveButton, gbc);
-        daoruButton = new JButton();
-        daoruButton.setText("导入配置文件");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 2;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        list.add(daoruButton, gbc);
         addButton = new JButton();
         addButton.setText("新增");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         list.add(addButton, gbc);
         workLabel = new JLabel();
@@ -132,34 +119,40 @@ public class Tomcat_list {
         workLabel.setText("无");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.fill = GridBagConstraints.BOTH;
         gbc.insets = new Insets(0, 0, 0, 30);
         list.add(workLabel, gbc);
-        peizhiLabel = new JLabel();
-        peizhiLabel.setPreferredSize(new Dimension(100, 20));
-        peizhiLabel.setText("");
+        saveButton = new JButton();
+        saveButton.setText("保存配置");
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        list.add(peizhiLabel, gbc);
+        gbc.gridx = 3;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        list.add(saveButton, gbc);
+        daoruButton = new JButton();
+        daoruButton.setText("导入配置文件");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 4;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        list.add(daoruButton, gbc);
         sp1 = new JScrollPane();
         sp1.setPreferredSize(new Dimension(400, 420));
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.gridwidth = 3;
+        gbc.gridy = 1;
+        gbc.gridwidth = 6;
         gbc.fill = GridBagConstraints.BOTH;
         list.add(sp1, gbc);
         sp1.setViewportView(listTable);
-        final JPanel spacer1 = new JPanel();
+        clearButton = new JButton();
+        clearButton.setText("清理工作目录");
         gbc = new GridBagConstraints();
-        gbc.gridx = 3;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipady = 100;
-        list.add(spacer1, gbc);
+        gbc.gridx = 5;
+        gbc.gridy = 0;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        list.add(clearButton, gbc);
     }
 
     /**

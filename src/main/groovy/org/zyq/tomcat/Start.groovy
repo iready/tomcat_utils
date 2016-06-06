@@ -7,7 +7,7 @@ import javax.swing.*
 
 class Start {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("Tomcat_add");
+        JFrame frame = new JFrame("tomcat管理工具");
         SwingUtils.beatiful_up();
         SwingUtils.setjFrame(frame);
         SwingUtils.window_init_end(frame, new Tomcat_list().$$$getRootComponent$$$());
