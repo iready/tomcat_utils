@@ -51,6 +51,7 @@ public class Tomcat_add {
                 info.setPort(i);
                 info.setId(UUID.randomUUID().toString());
                 CONFIG.subject.getList().add(info);
+                System.out.println(Tomcat_add.class.getResourceAsStream("/tomcat_8.028.zip"));
                 JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }

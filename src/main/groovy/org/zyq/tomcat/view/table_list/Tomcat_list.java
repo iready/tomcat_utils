@@ -42,8 +42,11 @@ public class Tomcat_list {
             }
         });
         addButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
+                if (Str.isBlank(CONFIG.subject.getWorkspace())) {
+                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "请先选择工作目录", "错误", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
                 SwingUtils.setContent(new Tomcat_add().$$$getRootComponent$$$());
             }
         });
