@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 import org.zyq.swing.SwingUtils;
 import org.zyq.tomcat.CONFIG;
 import org.zyq.tomcat.entity.TomcatInfo;
+import org.zyq.tomcat.service.TomcztUtils;
 import org.zyq.tomcat.view.table_list.Tomcat_list;
 
 import javax.swing.*;
@@ -54,14 +55,13 @@ public class Tomcat_add {
                 info.setPort(i);
                 String id = UUID.randomUUID().toString().replaceAll("-", "");
                 info.setId(id);
-                CONFIG.subject.getList().add(info);
                 String tomcat_name = "tomcat_8.028.zip";
                 try {
                     File file = new File(CONFIG.subject.getWorkspace() + "/" + tomcat_name);
                     if (!file.exists())
                         FileUtils.copyInputStreamToFile(Tomcat_add.class.getResourceAsStream("/" + tomcat_name), file);
                     ZipFile zipFile = new ZipFile(file);
-                    if (!zipFile.isValidZipFile()) {   // 验证.zip文件是否合法，包括文件是否存在、是否为zip文件、是否被损坏等
+                    if (!zipFile.isValidZipFile()) {
                         JOptionPane.showMessageDialog($$$getRootComponent$$$(), "压缩文件不合法,可能被损坏.", "提示", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
@@ -70,11 +70,14 @@ public class Tomcat_add {
                         destDir.mkdirs();
                     }
                     zipFile.extractAll(destDir.getAbsolutePath());
+                    CONFIG.subject.getList().add(info);
+                    TomcztUtils.saveConfig();
                     JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
-                    e1.printStackTrace();
                     JOptionPane.showMessageDialog($$$getRootComponent$$$(), "发生错误", "提示", JOptionPane.ERROR_MESSAGE);
+                    e1.printStackTrace();
                 }
+                TomcztUtils.edit_port(i, CONFIG.subject, id);
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }
         });

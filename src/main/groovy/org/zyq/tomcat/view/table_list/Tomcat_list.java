@@ -1,10 +1,10 @@
 package org.zyq.tomcat.view.table_list;
 
-import org.apache.commons.io.FileUtils;
 import org.zyq.core.lang.Str;
 import org.zyq.swing.SwingUtils;
 import org.zyq.swing.TableUtils;
 import org.zyq.tomcat.CONFIG;
+import org.zyq.tomcat.service.TomcztUtils;
 import org.zyq.tomcat.view.tabel_add.Tomcat_add;
 
 import javax.swing.*;
@@ -14,7 +14,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.ObjectOutputStream;
 
 public class Tomcat_list {
 
@@ -32,13 +31,7 @@ public class Tomcat_list {
         $$$setupUI$$$();
         saveButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                try {
-                    ObjectOutputStream oos = new ObjectOutputStream(FileUtils.openOutputStream(new File(CONFIG.defaultConfig)));
-                    oos.writeObject(CONFIG.subject);
-                    oos.close();
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                }
+                TomcztUtils.saveConfig();
             }
         });
         addButton.addActionListener(new ActionListener() {
