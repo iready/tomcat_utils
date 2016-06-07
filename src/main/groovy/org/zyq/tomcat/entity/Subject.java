@@ -4,13 +4,19 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by Administrator on 2016/6/4.
- */
 public class Subject implements Serializable {
     private List<TomcatInfo> list = new ArrayList<>();
 
     private String workspace;
+    private String JDKPath;
+
+    public String getJDKPath() {
+        return JDKPath;
+    }
+
+    public void setJDKPath(String JDKPath) {
+        this.JDKPath = JDKPath;
+    }
 
     public List<TomcatInfo> getList() {
         return list;
@@ -27,4 +33,5 @@ public class Subject implements Serializable {
     public void setWorkspace(String workspace) {
         this.workspace = workspace;
     }
+
 }

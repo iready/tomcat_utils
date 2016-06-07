@@ -76,6 +76,16 @@ public class Tomcat_option {
         shutdownport.setText(tom.getShutdownPort() + "");
         redport.setText(tom.getRedPort() + "");
         qidongport.setText(tom.getPort() + "");
+        qidongButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TomcztUtils.start_tomcat_normal(id);
+            }
+        });
+        tingzhiButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                TomcztUtils.stop_tomcat_normal(id);
+            }
+        });
     }
 
     {
@@ -164,7 +174,7 @@ public class Tomcat_option {
         o.add(label2, gbc);
         final JLabel label3 = new JLabel();
         label3.setHorizontalAlignment(4);
-        label3.setText("是否集成单点登陆：");
+        label3.setText("是否为CAS：");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
@@ -173,12 +183,14 @@ public class Tomcat_option {
         o.add(label3, gbc);
         nowtomcat = new JLabel();
         nowtomcat.setHorizontalAlignment(2);
+        nowtomcat.setPreferredSize(new Dimension(150, 0));
         nowtomcat.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 2;
         gbc.gridy = 1;
         gbc.gridwidth = 4;
-        gbc.fill = GridBagConstraints.BOTH;
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.VERTICAL;
         o.add(nowtomcat, gbc);
         final JLabel label4 = new JLabel();
         label4.setHorizontalAlignment(4);
@@ -200,7 +212,7 @@ public class Tomcat_option {
         o.add(label5, gbc);
         final JLabel label6 = new JLabel();
         label6.setHorizontalAlignment(4);
-        label6.setText("TOMCAT连接端口：");
+        label6.setText("连接端口：");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 3;

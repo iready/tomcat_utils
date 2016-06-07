@@ -36,25 +36,21 @@ public class JComboBoxConstruct {
 
         @Override
         public Object getSelectedItem() {
-            // TODO Auto-generated method stub
             return this.item;
         }
 
         @Override
         public void setSelectedItem(Object item) {
-            // TODO Auto-generated method stub
             this.item = (String) item;
         }
 
         @Override
         public Object getElementAt(int index) {
-            // TODO Auto-generated method stub
             return s[index++];
         }
 
         @Override
         public int getSize() {
-            // TODO Auto-generated method stub
             return s.length;
         }
 

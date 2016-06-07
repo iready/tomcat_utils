@@ -94,16 +94,17 @@
         </constraints>
         <properties>
           <horizontalAlignment value="4"/>
-          <text value="是否集成单点登陆："/>
+          <text value="是否为CAS："/>
         </properties>
       </component>
       <component id="846ef" class="javax.swing.JLabel" binding="nowtomcat">
         <constraints>
-          <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="2" row-span="1" col-span="4" vsize-policy="0" hsize-policy="0" anchor="8" fill="2" indent="0" use-parent-layout="false"/>
           <gridbag weightx="0.0" weighty="0.0"/>
         </constraints>
         <properties>
           <horizontalAlignment value="2"/>
+          <preferredSize width="150" height="0"/>
           <text value=""/>
         </properties>
       </component>
@@ -134,7 +135,7 @@
         </constraints>
         <properties>
           <horizontalAlignment value="4"/>
-          <text value="TOMCAT连接端口："/>
+          <text value="连接端口："/>
         </properties>
       </component>
       <component id="de580" class="javax.swing.JLabel" binding="qidongport">

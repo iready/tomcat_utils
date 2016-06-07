@@ -1,6 +1,7 @@
 package org.zyq.tomcat.service
 
 import org.apache.commons.io.FileUtils
+import org.apache.commons.io.input.ReaderInputStream
 import org.dom4j.Document
 import org.dom4j.io.SAXReader
 import org.dom4j.tree.DefaultElement
@@ -105,5 +106,37 @@ class TomcztUtils {
 
     public static TomcatInfo getTomcatInfoById(String id) {
         return CONFIG.subject.list.find { return it.id == id; };
+    }
+
+/**
+ * 正常开启tomcat
+ * @param id
+ */
+    public static void start_tomcat_normal(String id) {
+        TomcatInfo info = getTomcatInfoById(id);
+        if (info != null) {
+            new Thread(new Runnable() {
+                void run() {
+                    String bin = "${CONFIG.subject.getWorkspace()}/$id/bin";
+                    Process p = ("$bin\\catalina.bat run debug").execute(['JAVA_HOME=C:\\Program Files\\Java\\jdk1.7.0_67'], new File(bin));
+                    println new InputStreamReader(p.err, "UTF-8").text
+//                    println p.outputStream;
+//                    println 12
+                }
+            }).start();
+        }
+    }
+
+    public static void stop_tomcat_normal(String id) {
+        TomcatInfo info = getTomcatInfoById(id);
+        if (info != null) {
+            new Thread(new Runnable() {
+                void run() {
+                    String bin = "${CONFIG.subject.getWorkspace()}/$id/bin";
+                    Process p = ("$bin\\catalina.bat stop").execute(['JAVA_HOME=C:\\Program Files\\Java\\jdk1.7.0_67'], new File(bin));
+                    println p.text
+                }
+            }).start();
+        }
     }
 }
