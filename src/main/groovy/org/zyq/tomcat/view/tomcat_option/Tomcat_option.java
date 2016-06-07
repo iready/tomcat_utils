@@ -2,6 +2,8 @@ package org.zyq.tomcat.view.tomcat_option;
 
 import org.zyq.swing.SwingUtils;
 import org.zyq.tomcat.CONFIG;
+import org.zyq.tomcat.entity.TomcatInfo;
+import org.zyq.tomcat.service.TomcztUtils;
 import org.zyq.tomcat.view.table_list.Tomcat_list;
 
 import javax.swing.*;
@@ -21,7 +23,11 @@ public class Tomcat_option {
     private JButton sureButton;
     private JButton deleteButton;
     private JLabel nowtomcat;
-    private JTabbedPane tabbedPane1;
+    private JLabel qidongport;
+    private JLabel redport;
+    private JLabel conport;
+    private JLabel shutdownport;
+    private JComboBox isSign;
 
     public Tomcat_option(final String id) {
         backButton.addActionListener(new ActionListener() {
@@ -32,13 +38,22 @@ public class Tomcat_option {
         });
         deleteButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int index = -1;
-                for (int i = 0; i < CONFIG.subject.getList().size(); i++) {
-                    if (CONFIG.subject.getList().get(i).getId().equals(id)) index = i;
+                switch (JOptionPane.showConfirmDialog($$$getRootComponent$$$(), "是否删除")) {
+                    case 0:
+                        int index = -1;
+                        for (int i = 0; i < CONFIG.subject.getList().size(); i++) {
+                            if (CONFIG.subject.getList().get(i).getId().equals(id)) index = i;
+                        }
+                        if (index != -1) CONFIG.subject.getList().remove(index);
+                        JOptionPane.showMessageDialog($$$getRootComponent$$$(), "删除成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+                        SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
+                        TomcztUtils.saveConfig();
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
                 }
-                if (index != -1) CONFIG.subject.getList().remove(index);
-                JOptionPane.showMessageDialog($$$getRootComponent$$$(), "删除成功", "提示", JOptionPane.INFORMATION_MESSAGE);
-                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }
         });
         final String s = CONFIG.subject.getWorkspace() + "\\" + id;
@@ -56,6 +71,11 @@ public class Tomcat_option {
                 }
             }
         });
+        TomcatInfo tom = TomcztUtils.getTomcatInfoById(id);
+        conport.setText(tom.getConPort() + "");
+        shutdownport.setText(tom.getShutdownPort() + "");
+        redport.setText(tom.getRedPort() + "");
+        qidongport.setText(tom.getPort() + "");
     }
 
     {
@@ -124,79 +144,112 @@ public class Tomcat_option {
         gbc.gridy = 0;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         o.add(deleteButton, gbc);
-        tabbedPane1 = new JTabbedPane();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.gridwidth = 6;
-        gbc.fill = GridBagConstraints.BOTH;
-        o.add(tabbedPane1, gbc);
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
-        tabbedPane1.addTab("1", panel1);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(spacer1, gbc);
-        final JPanel spacer2 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(spacer2, gbc);
         final JLabel label1 = new JLabel();
-        label1.setText("名称：");
+        label1.setHorizontalAlignment(4);
+        label1.setText("TOMCAT路径：");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(label1, gbc);
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label1, gbc);
         final JLabel label2 = new JLabel();
         label2.setHorizontalAlignment(4);
-        label2.setText("当前TOMCAT为：");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.fill = GridBagConstraints.BOTH;
-        panel1.add(label2, gbc);
-        final JLabel label3 = new JLabel();
-        label3.setText("端口：");
+        label2.setText("TOMCAT端口：");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(label3, gbc);
-        final JLabel label4 = new JLabel();
-        label4.setText("状态：");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(label4, gbc);
-        final JLabel label5 = new JLabel();
-        label5.setText("名称：");
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label2, gbc);
+        final JLabel label3 = new JLabel();
+        label3.setHorizontalAlignment(4);
+        label3.setText("是否集成单点登陆：");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 4;
-        gbc.anchor = GridBagConstraints.EAST;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(label5, gbc);
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label3, gbc);
         nowtomcat = new JLabel();
+        nowtomcat.setHorizontalAlignment(2);
         nowtomcat.setText("");
         gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 0;
+        gbc.gridx = 2;
+        gbc.gridy = 1;
+        gbc.gridwidth = 4;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(nowtomcat, gbc);
+        final JLabel label4 = new JLabel();
+        label4.setHorizontalAlignment(4);
+        label4.setText("TOMCAT转发端口：");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 2;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label4, gbc);
+        final JLabel label5 = new JLabel();
+        label5.setHorizontalAlignment(4);
+        label5.setText("TOMCAT关闭端口：");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 3;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label5, gbc);
+        final JLabel label6 = new JLabel();
+        label6.setHorizontalAlignment(4);
+        label6.setText("TOMCAT连接端口：");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        gbc.gridwidth = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(label6, gbc);
+        qidongport = new JLabel();
+        qidongport.setHorizontalAlignment(2);
+        qidongport.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(qidongport, gbc);
+        redport = new JLabel();
+        redport.setHorizontalAlignment(2);
+        redport.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 2;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(redport, gbc);
+        conport = new JLabel();
+        conport.setHorizontalAlignment(2);
+        conport.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(conport, gbc);
+        shutdownport = new JLabel();
+        shutdownport.setHorizontalAlignment(2);
+        shutdownport.setText("");
+        gbc = new GridBagConstraints();
+        gbc.gridx = 5;
+        gbc.gridy = 3;
+        gbc.fill = GridBagConstraints.BOTH;
+        o.add(shutdownport, gbc);
+        isSign = new JComboBox();
+        final DefaultComboBoxModel defaultComboBoxModel1 = new DefaultComboBoxModel();
+        defaultComboBoxModel1.addElement("是");
+        defaultComboBoxModel1.addElement("否");
+        isSign.setModel(defaultComboBoxModel1);
+        gbc = new GridBagConstraints();
+        gbc.gridx = 2;
+        gbc.gridy = 4;
         gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        panel1.add(nowtomcat, gbc);
-        final JPanel panel2 = new JPanel();
-        panel2.setLayout(new GridBagLayout());
-        tabbedPane1.addTab("2", panel2);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        o.add(isSign, gbc);
     }
 
     /**

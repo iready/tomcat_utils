@@ -71,13 +71,13 @@ public class Tomcat_add {
                     }
                     zipFile.extractAll(destDir.getAbsolutePath());
                     CONFIG.subject.getList().add(info);
+                    TomcztUtils.edit_port(i, CONFIG.subject, id);
                     TomcztUtils.saveConfig();
                     JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {
                     JOptionPane.showMessageDialog($$$getRootComponent$$$(), "发生错误", "提示", JOptionPane.ERROR_MESSAGE);
                     e1.printStackTrace();
                 }
-                TomcztUtils.edit_port(i, CONFIG.subject, id);
                 SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
             }
         });

@@ -8,8 +8,17 @@ public class TomcatInfo implements Serializable {
     private Integer port;
     private Integer redPort;
     private Integer conPort;
+    private Integer shutdownPort;
     private String version;
     private String status;
+
+    public Integer getShutdownPort() {
+        return shutdownPort;
+    }
+
+    public void setShutdownPort(Integer shutdownPort) {
+        this.shutdownPort = shutdownPort;
+    }
 
     public Integer getRedPort() {
         return redPort;

@@ -31,6 +31,10 @@ class TomcztUtils {
         List<TomcatInfo> tomcatInfos = subject.list;
         if (tomcatInfos != null) {
             Integer[] ports = createPort(subject);
+            TomcatInfo info=getTomcatInfoById(id);
+            info.setShutdownPort(ports[0])
+            info.setRedPort(ports[1])
+            info.setConPort(ports[2])
             edit_port(port, ports[0], ports[1], ports[2], CONFIG.subject.getWorkspace() + '/' + id + '/conf/server.xml')
         }
     }
@@ -97,5 +101,9 @@ class TomcztUtils {
             return false;
         }
         return true;
+    }
+
+    public static TomcatInfo getTomcatInfoById(String id) {
+        return CONFIG.subject.list.find { return it.id == id; };
     }
 }
