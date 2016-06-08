@@ -35,7 +35,6 @@ public class Tomcat_add {
             }
         });
         sureButton.addActionListener(new ActionListener() {
-            @Override
             public void actionPerformed(ActionEvent e) {
                 TomcatInfo info = new TomcatInfo();
                 tishi.setText("");
@@ -50,6 +49,10 @@ public class Tomcat_add {
                     if (i < 0 || i > 65535) tishi.setText("请输入正确端口号");
                 } catch (Exception e1) {
                     tishi.setText("请输入数字");
+                    return;
+                }
+                if (TomcztUtils.duankouzhanyong(i)) {
+                    tishi.setText("端口号可能已被占用");
                     return;
                 }
                 info.setPort(i);

@@ -84,10 +84,6 @@ class TomcztUtils {
         }
     }
 
-    public static void main(String[] args) {
-        edit_port(9012, 312, 3123, 12312, 'D:\\Workspace/88c3a1bcbea64cd4a7421c55733bd00d/conf/server.xml')
-    }
-
     public static boolean spaceExisted() {
         if (CONFIG.subject.getWorkspace() != null) {
             File f = new File(CONFIG.subject.getWorkspace());
@@ -138,5 +134,19 @@ class TomcztUtils {
                 }
             }).start();
         }
+    }
+/**
+ * 测试端口是否被占用
+ * @param port
+ * @return true 为被占用
+ */
+    public static boolean duankouzhanyong(Integer port) {
+        def p = "cmd /c netstat -aon|findstr \"$port\"".execute();
+        return !p.text.isEmpty()
+    }
+
+    public static void main(String[] args) {
+//        edit_port(9012, 312, 3123, 12312, 'D:\\Workspace/88c3a1bcbea64cd4a7421c55733bd00d/conf/server.xml')
+//        println duankouzhanyong(3309)
     }
 }
