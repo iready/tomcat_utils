@@ -72,9 +72,10 @@ public class Tomcat_add {
                     if (!destDir.exists()) {
                         destDir.mkdirs();
                     }
-                    zipFile.extractAll(destDir.getAbsolutePath());
+                    //拷贝整个tomcat
+//                    zipFile.extractAll(destDir.getAbsolutePath());
                     CONFIG.subject.getList().add(info);
-                    TomcztUtils.edit_port(i, CONFIG.subject, id);
+//                    TomcztUtils.edit_port(i, CONFIG.subject, id);
                     TomcztUtils.saveConfig();
                     JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
                 } catch (Exception e1) {

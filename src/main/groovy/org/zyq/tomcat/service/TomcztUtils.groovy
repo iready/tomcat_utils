@@ -32,7 +32,7 @@ class TomcztUtils {
         List<TomcatInfo> tomcatInfos = subject.list;
         if (tomcatInfos != null) {
             Integer[] ports = createPort(subject);
-            TomcatInfo info=getTomcatInfoById(id);
+            TomcatInfo info = getTomcatInfoById(id);
             info.setShutdownPort(ports[0])
             info.setRedPort(ports[1])
             info.setConPort(ports[2])
@@ -115,9 +115,7 @@ class TomcztUtils {
                 void run() {
                     String bin = "${CONFIG.subject.getWorkspace()}/$id/bin";
                     Process p = ("$bin\\catalina.bat run debug").execute(['JAVA_HOME=C:\\Program Files\\Java\\jdk1.7.0_67'], new File(bin));
-                    println new InputStreamReader(p.err, "UTF-8").text
-//                    println p.outputStream;
-//                    println 12
+                    new InputStreamReader(p.err, "UTF-8").text;
                 }
             }).start();
         }
@@ -130,7 +128,6 @@ class TomcztUtils {
                 void run() {
                     String bin = "${CONFIG.subject.getWorkspace()}/$id/bin";
                     Process p = ("$bin\\catalina.bat stop").execute(['JAVA_HOME=C:\\Program Files\\Java\\jdk1.7.0_67'], new File(bin));
-                    println p.text
                 }
             }).start();
         }

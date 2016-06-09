@@ -106,6 +106,19 @@ public class Tomcat_list {
                 TomcztUtils.saveConfig();
             }
         });
+        jdkLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (e.getClickCount() == 2 && Str.notBlank(CONFIG.subject.getJDKPath())) {
+                    try {
+                        Runtime.getRuntime().exec("explorer " + CONFIG.subject.getJDKPath());
+                    } catch (IOException e1) {
+                        e1.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 
     private void createUIComponents() {
@@ -137,7 +150,7 @@ public class Tomcat_list {
         workLabel = new JLabel();
         workLabel.setEnabled(true);
         workLabel.setPreferredSize(new Dimension(100, 20));
-        workLabel.setText("无");
+        workLabel.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
