@@ -142,8 +142,14 @@ class TomcztUtils {
         return !p.text.isEmpty()
     }
 
+    public static void createBaseCatalina(String root) {
+        File local = new File(root, 'conf\\Catalina\\localhost');
+        local.mkdirs();
+    }
+
     public static void main(String[] args) {
 //        edit_port(9012, 312, 3123, 12312, 'D:\\Workspace/88c3a1bcbea64cd4a7421c55733bd00d/conf/server.xml')
 //        println duankouzhanyong(3309)
+        createBaseCatalina("D:\\Workspace")
     }
 }

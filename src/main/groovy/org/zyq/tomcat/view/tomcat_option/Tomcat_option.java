@@ -194,7 +194,7 @@ public class Tomcat_option {
         o.add(nowtomcat, gbc);
         final JLabel label4 = new JLabel();
         label4.setHorizontalAlignment(4);
-        label4.setText("TOMCAT转发端口：");
+        label4.setText("转发端口：");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 2;
@@ -203,7 +203,7 @@ public class Tomcat_option {
         o.add(label4, gbc);
         final JLabel label5 = new JLabel();
         label5.setHorizontalAlignment(4);
-        label5.setText("TOMCAT关闭端口：");
+        label5.setText("关闭端口：");
         gbc = new GridBagConstraints();
         gbc.gridx = 3;
         gbc.gridy = 3;

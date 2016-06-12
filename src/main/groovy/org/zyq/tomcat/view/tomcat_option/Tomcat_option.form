@@ -115,7 +115,7 @@
         </constraints>
         <properties>
           <horizontalAlignment value="4"/>
-          <text value="TOMCAT转发端口："/>
+          <text value="转发端口："/>
         </properties>
       </component>
       <component id="e8e61" class="javax.swing.JLabel">
@@ -125,7 +125,7 @@
         </constraints>
         <properties>
           <horizontalAlignment value="4"/>
-          <text value="TOMCAT关闭端口："/>
+          <text value="关闭端口："/>
         </properties>
       </component>
       <component id="2c083" class="javax.swing.JLabel">

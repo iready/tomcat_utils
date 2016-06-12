@@ -5,12 +5,21 @@ import java.io.Serializable;
 public class TomcatInfo implements Serializable {
     private String id;
     private String name;
+    private String version;
+    private String catalinaBase;
+    private String status;
     private Integer port;
     private Integer redPort;
     private Integer conPort;
     private Integer shutdownPort;
-    private String version;
-    private String status;
+
+    public String getCatalinaBase() {
+        return catalinaBase;
+    }
+
+    public void setCatalinaBase(String catalinaBase) {
+        this.catalinaBase = catalinaBase;
+    }
 
     public Integer getShutdownPort() {
         return shutdownPort;
