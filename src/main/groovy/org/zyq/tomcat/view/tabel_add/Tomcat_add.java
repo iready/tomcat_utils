@@ -1,203 +1,203 @@
-package org.zyq.tomcat.view.tabel_add;
-
-import net.lingala.zip4j.core.ZipFile;
-import org.apache.commons.io.FileUtils;
-import org.zyq.swing.SwingUtils;
-import org.zyq.tomcat.CONFIG;
-import org.zyq.tomcat.entity.TomcatInfo;
-import org.zyq.tomcat.service.TomcztUtils;
-import org.zyq.tomcat.view.table_list.Tomcat_list;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.util.UUID;
-
-/**
- * Created by Administrator on 2016/6/4.
- */
-public class Tomcat_add {
-    private JPanel addJpan;
-    private JButton back;
-    private JButton sureButton;
-    private JTextField nameField;
-    private JTextField duokouLabel;
-    private JTextField xuniLabel;
-    private JLabel tishi;
-
-    public Tomcat_add() {
-        back.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
-            }
-        });
-        sureButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                TomcatInfo info = new TomcatInfo();
-                tishi.setText("");
-                if (!nameField.getText().trim().isEmpty()) info.setName(nameField.getText().trim());
-                else {
-                    tishi.setText("请输入名字");
-                    return;
-                }
-                Integer i = null;
-                try {
-                    i = Integer.valueOf(duokouLabel.getText());
-                    if (i < 0 || i > 65535) tishi.setText("请输入正确端口号");
-                } catch (Exception e1) {
-                    tishi.setText("请输入数字");
-                    return;
-                }
-                if (TomcztUtils.duankouzhanyong(i)) {
-                    tishi.setText("端口号可能已被占用");
-                    return;
-                }
-                info.setPort(i);
-                String id = UUID.randomUUID().toString().replaceAll("-", "");
-                info.setId(id);
-                String tomcat_name = "tomcat_8.028.zip";
-                try {
-                    File file = new File(CONFIG.subject.getWorkspace() + "/" + tomcat_name);
-                    if (!file.exists())
-                        FileUtils.copyInputStreamToFile(Tomcat_add.class.getResourceAsStream("/" + tomcat_name), file);
-                    ZipFile zipFile = new ZipFile(file);
-                    if (!zipFile.isValidZipFile()) {
-                        JOptionPane.showMessageDialog($$$getRootComponent$$$(), "压缩文件不合法,可能被损坏.", "提示", JOptionPane.ERROR_MESSAGE);
-                        return;
-                    }
-                    File destDir = new File(CONFIG.subject.getWorkspace(), id);
-                    if (!destDir.exists()) {
-                        destDir.mkdirs();
-                    }
-                    //拷贝整个tomcat
+//package org.zyq.tomcat.view.tabel_add;
+//
+//import net.lingala.zip4j.core.ZipFile;
+//import org.apache.commons.io.FileUtils;
+//import org.zyq.swing.SwingUtils;
+//import org.zyq.tomcat.CONFIG;
+//import org.zyq.tomcat.entity.TomcatInfo;
+//import org.zyq.tomcat.service.TomcztUtils;
+//import org.zyq.tomcat.view.table_list.Tomcat_list;
+//
+//import javax.swing.*;
+//import java.awt.*;
+//import java.awt.event.ActionEvent;
+//import java.awt.event.ActionListener;
+//import java.io.File;
+//import java.util.UUID;
+//
+///**
+// * Created by Administrator on 2016/6/4.
+// */
+//public class Tomcat_add {
+//    private JPanel addJpan;
+//    private JButton back;
+//    private JButton sureButton;
+//    private JTextField nameField;
+//    private JTextField duokouLabel;
+//    private JTextField xuniLabel;
+//    private JLabel tishi;
+//
+//    public Tomcat_add() {
+//        back.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
+//            }
+//        });
+//        sureButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                TomcatInfo info = new TomcatInfo();
+//                tishi.setText("");
+//                if (!nameField.getText().trim().isEmpty()) info.setName(nameField.getText().trim());
+//                else {
+//                    tishi.setText("请输入名字");
+//                    return;
+//                }
+//                Integer i = null;
+//                try {
+//                    i = Integer.valueOf(duokouLabel.getText());
+//                    if (i < 0 || i > 65535) tishi.setText("请输入正确端口号");
+//                } catch (Exception e1) {
+//                    tishi.setText("请输入数字");
+//                    return;
+//                }
+//                if (TomcztUtils.duankouzhanyong(i)) {
+//                    tishi.setText("端口号可能已被占用");
+//                    return;
+//                }
+//                info.setPort(i);
+//                String id = UUID.randomUUID().toString().replaceAll("-", "");
+//                info.setId(id);
+//                String tomcat_name = "tomcat_8.028.zip";
+//                try {
+//                    File file = new File(CONFIG.subject.getWorkspace() + "/" + tomcat_name);
+//                    if (!file.exists())
+//                        FileUtils.copyInputStreamToFile(Tomcat_add.class.getResourceAsStream("/" + tomcat_name), file);
+//                    ZipFile zipFile = new ZipFile(file);
+//                    if (!zipFile.isValidZipFile()) {
+//                        JOptionPane.showMessageDialog($$$getRootComponent$$$(), "压缩文件不合法,可能被损坏.", "提示", JOptionPane.ERROR_MESSAGE);
+//                        return;
+//                    }
+//                    File destDir = new File(CONFIG.subject.getWorkspace(), id);
+//                    if (!destDir.exists()) {
+//                        destDir.mkdirs();
+//                    }
+//                    //拷贝整个tomcat
 //                    zipFile.extractAll(destDir.getAbsolutePath());
-                    CONFIG.subject.getList().add(info);
+//                    CONFIG.subject.getList().add(info);
 //                    TomcztUtils.edit_port(i, CONFIG.subject, id);
-                    TomcztUtils.saveConfig();
-                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception e1) {
-                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "发生错误", "提示", JOptionPane.ERROR_MESSAGE);
-                    e1.printStackTrace();
-                }
-                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
-            }
-        });
-    }
-
-    {
-// GUI initializer generated by IntelliJ IDEA GUI Designer
-// >>> IMPORTANT!! <<<
-// DO NOT EDIT OR ADD ANY CODE HERE!
-        $$$setupUI$$$();
-    }
-
-    /**
-     * Method generated by IntelliJ IDEA GUI Designer
-     * >>> IMPORTANT!! <<<
-     * DO NOT edit this method OR call it in your code!
-     *
-     * @noinspection ALL
-     */
-    private void $$$setupUI$$$() {
-        addJpan = new JPanel();
-        addJpan.setLayout(new GridBagLayout());
-        final JLabel label1 = new JLabel();
-        label1.setHorizontalAlignment(0);
-        label1.setText("新增Tomcat");
-        GridBagConstraints gbc;
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.BOTH;
-        addJpan.add(label1, gbc);
-        final JPanel spacer1 = new JPanel();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.VERTICAL;
-        gbc.ipadx = 50;
-        addJpan.add(spacer1, gbc);
-        back = new JButton();
-        back.setText("返回");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        addJpan.add(back, gbc);
-        sureButton = new JButton();
-        sureButton.setText("确定");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 2;
-        gbc.gridy = 1;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        addJpan.add(sureButton, gbc);
-        final JLabel label2 = new JLabel();
-        label2.setText("名字：");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 2;
-        gbc.anchor = GridBagConstraints.EAST;
-        addJpan.add(label2, gbc);
-        nameField = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 2;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        addJpan.add(nameField, gbc);
-        final JLabel label3 = new JLabel();
-        label3.setHorizontalAlignment(4);
-        label3.setText("端口：");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 3;
-        gbc.fill = GridBagConstraints.BOTH;
-        addJpan.add(label3, gbc);
-        final JLabel label4 = new JLabel();
-        label4.setHorizontalAlignment(4);
-        label4.setText("虚拟路径：");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 4;
-        gbc.fill = GridBagConstraints.BOTH;
-        addJpan.add(label4, gbc);
-        duokouLabel = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 3;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        addJpan.add(duokouLabel, gbc);
-        xuniLabel = new JTextField();
-        gbc = new GridBagConstraints();
-        gbc.gridx = 1;
-        gbc.gridy = 4;
-        gbc.gridwidth = 2;
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        addJpan.add(xuniLabel, gbc);
-        tishi = new JLabel();
-        tishi.setHorizontalAlignment(0);
-        tishi.setPreferredSize(new Dimension(200, 20));
-        tishi.setText("");
-        gbc = new GridBagConstraints();
-        gbc.gridx = 0;
-        gbc.gridy = 5;
-        gbc.gridwidth = 3;
-        gbc.fill = GridBagConstraints.BOTH;
-        addJpan.add(tishi, gbc);
-    }
-
-    /**
-     * @noinspection ALL
-     */
-    public JComponent $$$getRootComponent$$$() {
-        return addJpan;
-    }
-}
+//                    TomcztUtils.saveConfig();
+//                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "新增成功", "提示", JOptionPane.INFORMATION_MESSAGE);
+//                } catch (Exception e1) {
+//                    JOptionPane.showMessageDialog($$$getRootComponent$$$(), "发生错误", "提示", JOptionPane.ERROR_MESSAGE);
+//                    e1.printStackTrace();
+//                }
+//                SwingUtils.setContent(new Tomcat_list().$$$getRootComponent$$$());
+//            }
+//        });
+//    }
+//
+//    {
+//// GUI initializer generated by IntelliJ IDEA GUI Designer
+//// >>> IMPORTANT!! <<<
+//// DO NOT EDIT OR ADD ANY CODE HERE!
+//        $$$setupUI$$$();
+//    }
+//
+//    /**
+//     * Method generated by IntelliJ IDEA GUI Designer
+//     * >>> IMPORTANT!! <<<
+//     * DO NOT edit this method OR call it in your code!
+//     *
+//     * @noinspection ALL
+//     */
+//    private void $$$setupUI$$$() {
+//        addJpan = new JPanel();
+//        addJpan.setLayout(new GridBagLayout());
+//        final JLabel label1 = new JLabel();
+//        label1.setHorizontalAlignment(0);
+//        label1.setText("新增Tomcat");
+//        GridBagConstraints gbc;
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 0;
+//        gbc.gridwidth = 3;
+//        gbc.fill = GridBagConstraints.BOTH;
+//        addJpan.add(label1, gbc);
+//        final JPanel spacer1 = new JPanel();
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 1;
+//        gbc.gridy = 1;
+//        gbc.fill = GridBagConstraints.VERTICAL;
+//        gbc.ipadx = 50;
+//        addJpan.add(spacer1, gbc);
+//        back = new JButton();
+//        back.setText("返回");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 1;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        addJpan.add(back, gbc);
+//        sureButton = new JButton();
+//        sureButton.setText("确定");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 2;
+//        gbc.gridy = 1;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        addJpan.add(sureButton, gbc);
+//        final JLabel label2 = new JLabel();
+//        label2.setText("名字：");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 2;
+//        gbc.anchor = GridBagConstraints.EAST;
+//        addJpan.add(label2, gbc);
+//        nameField = new JTextField();
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 1;
+//        gbc.gridy = 2;
+//        gbc.gridwidth = 2;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        addJpan.add(nameField, gbc);
+//        final JLabel label3 = new JLabel();
+//        label3.setHorizontalAlignment(4);
+//        label3.setText("端口：");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 3;
+//        gbc.fill = GridBagConstraints.BOTH;
+//        addJpan.add(label3, gbc);
+//        final JLabel label4 = new JLabel();
+//        label4.setHorizontalAlignment(4);
+//        label4.setText("虚拟路径：");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 4;
+//        gbc.fill = GridBagConstraints.BOTH;
+//        addJpan.add(label4, gbc);
+//        duokouLabel = new JTextField();
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 1;
+//        gbc.gridy = 3;
+//        gbc.gridwidth = 2;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        addJpan.add(duokouLabel, gbc);
+//        xuniLabel = new JTextField();
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 1;
+//        gbc.gridy = 4;
+//        gbc.gridwidth = 2;
+//        gbc.anchor = GridBagConstraints.WEST;
+//        gbc.fill = GridBagConstraints.HORIZONTAL;
+//        addJpan.add(xuniLabel, gbc);
+//        tishi = new JLabel();
+//        tishi.setHorizontalAlignment(0);
+//        tishi.setPreferredSize(new Dimension(200, 20));
+//        tishi.setText("");
+//        gbc = new GridBagConstraints();
+//        gbc.gridx = 0;
+//        gbc.gridy = 5;
+//        gbc.gridwidth = 3;
+//        gbc.fill = GridBagConstraints.BOTH;
+//        addJpan.add(tishi, gbc);
+//    }
+//
+//    /**
+//     * @noinspection ALL
+//     */
+//    public JComponent $$$getRootComponent$$$() {
+//        return addJpan;
+//    }
+//}

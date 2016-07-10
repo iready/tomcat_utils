@@ -12,6 +12,15 @@ public class TomcatInfo implements Serializable {
     private Integer redPort;
     private Integer conPort;
     private Integer shutdownPort;
+    private String bslj;//部署连接路径
+
+    public String getBslj() {
+        return bslj;
+    }
+
+    public void setBslj(String bslj) {
+        this.bslj = bslj;
+    }
 
     public String getCatalinaBase() {
         return catalinaBase;

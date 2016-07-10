@@ -1,7 +1,7 @@
 package org.zyq.tomcat.view.table_list;
 
-import org.zyq.swing.SwingUtils;
 import org.zyq.tomcat.view.tomcat_option.Tomcat_option;
+import tools.swing.SwingUtils;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
@@ -19,7 +19,7 @@ public class ZTable extends JTable {
             public void mouseClicked(MouseEvent e) {
                 super.mouseClicked(e);
                 ZTable table = (ZTable) e.getSource();
-                SwingUtils.setContent(new Tomcat_option((String) table.getModel().getValueAt(table.getSelectedRow(), 0)).$$$getRootComponent$$$());
+//                SwingUtils.setContent(new Tomcat_option((String) table.getModel().getValueAt(table.getSelectedRow(), 0)).$$$getRootComponent$$$());
             }
         });
     }

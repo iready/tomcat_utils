@@ -11,17 +11,26 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="tomcat_utils_main" />
-    <orderEntry type="library" name="Gradle: org.zyq.utils:core:0.52" level="project" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../lib/tool-0.1.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.zyq.utils:core:0.57" level="project" />
     <orderEntry type="library" name="Gradle: org.codehaus.groovy:groovy:2.4.5" level="project" />
     <orderEntry type="library" name="Gradle: dom4j:dom4j:1.6.1" level="project" />
     <orderEntry type="library" name="Gradle: log4j:log4j:1.2.17" level="project" />
     <orderEntry type="library" name="Gradle: net.lingala.zip4j:zip4j:1.3.2" level="project" />
-    <orderEntry type="library" name="Gradle: org.zyq.utils:swing:0.398" level="project" />
     <orderEntry type="library" name="Gradle: jaxen:jaxen:1.1.6" level="project" />
+    <orderEntry type="library" name="Gradle: com.melloware:jintellitype:1.3.1" level="project" />
+    <orderEntry type="library" name="Gradle: tablelayout:TableLayout:20050920" level="project" />
     <orderEntry type="library" name="Gradle: commons-io:commons-io:2.3" level="project" />
     <orderEntry type="library" name="Gradle: xml-apis:xml-apis:1.0.b2" level="project" />
-    <orderEntry type="library" name="Gradle: beautyeye:beautyeye:3.0" level="project" />
-    <orderEntry type="library" name="Gradle: cglib:cglib-nodep:3.1" level="project" />
+    <orderEntry type="library" name="Gradle: commons-logging:commons-logging:1.0.4" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="tomcat_utils_main" />
 </module>

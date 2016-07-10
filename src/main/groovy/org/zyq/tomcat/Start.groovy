@@ -1,15 +1,15 @@
 package org.zyq.tomcat
 
-import org.zyq.swing.SwingUtils
-import org.zyq.tomcat.view.table_list.Tomcat_list
+import org.zyq.tomcat.view.Index
+import org.zyq.tomcat.view.JframeApp
+import tools.swing.SwingUtils
 
 import javax.swing.*
 
 class Start {
     public static void main(String[] args) {
-        JFrame frame = new JFrame("tomcat管理工具");
-        SwingUtils.beatiful_up();
+        JFrame frame = new JframeApp();
         SwingUtils.setjFrame(frame);
-        SwingUtils.window_init_end(frame, new Tomcat_list().$$$getRootComponent$$$());
+        SwingUtils.window_init_end(frame, new Index());
     }
 }
